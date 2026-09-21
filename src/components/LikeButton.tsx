@@ -6,24 +6,29 @@ interface LikeButtonProps {
 }
 
 const LikeButton = ({ title, extra }: LikeButtonProps) => {
-  const [liked, setLiked] = useState(false);
-  const [count, setCount] = useState(0);
+  const [state, setState] = useState({ liked: false, count: 0 });
 
   const handleClick = () => {
-    if (liked) {
-      setLiked(false);
-      setCount(count - 1);
-    } else {
-      setLiked(true);
-      setCount(count + 1);
-    }
+    setState((prev) => ({
+      liked: !prev.liked,
+      count: prev.liked ? prev.count - 1 : prev.count + 1,
+    }));
   };
 
   return (
     <>
-      <h2>{title}{extra}</h2>
-      <button onClick={handleClick}>{liked ? "Unlike" : "Like"}</button>
-      <p>{count} Likes</p>
+      <h2>
+        {title}
+        {extra}
+      </h2>
+      <button
+        onClick={() => {
+          handleClick();
+        }}
+      >
+        {state.liked ? "Unlike" : "Like"}
+      </button>
+      <p>{state.count} Likes</p>
     </>
   );
 };
