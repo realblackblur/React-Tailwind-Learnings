@@ -2,10 +2,9 @@ import { useState } from "react";
 
 interface LikeButtonProps {
   title: string;
-  extra: number;
 }
 
-const LikeButton = ({ title, extra }: LikeButtonProps) => {
+const LikeButton = ({ title }: LikeButtonProps) => {
   const [state, setState] = useState({ liked: false, count: 0 });
 
   const handleClick = () => {
@@ -17,18 +16,9 @@ const LikeButton = ({ title, extra }: LikeButtonProps) => {
 
   return (
     <>
-      <h2>
-        {title}
-        {extra}
-      </h2>
-      <button
-        onClick={() => {
-          handleClick();
-        }}
-      >
-        {state.liked ? "Unlike" : "Like"}
-      </button>
-      <p>{state.count} Likes</p>
+      <h2>{title}</h2>
+      <button onClick={handleClick}>{state.liked ? "Unlike" : "Like"}</button>
+      {state.count > 0 && <p>You have {state.count} likes</p>}
     </>
   );
 };

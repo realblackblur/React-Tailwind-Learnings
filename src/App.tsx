@@ -1,9 +1,9 @@
-import LikeButton from "./components/LikeButton";
+import LikeList from "./components/LikeList";
 
 const App = () => {
   return (
     <>
-      <LikeButton title="My First Post " extra={5}/>
+      <LikeList />
     </>
   );
 };
