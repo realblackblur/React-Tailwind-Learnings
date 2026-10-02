@@ -1,24 +1,16 @@
-import { useState } from "react";
-
 interface LikeButtonProps {
   title: string;
+  liked: boolean;
+  count: number;
+  onLike: () => void;
 }
 
-const LikeButton = ({ title }: LikeButtonProps) => {
-  const [state, setState] = useState({ liked: false, count: 0 });
-
-  const handleClick = () => {
-    setState((prev) => ({
-      liked: !prev.liked,
-      count: prev.liked ? prev.count - 1 : prev.count + 1,
-    }));
-  };
-
+const LikeButton = ({ title, liked, count, onLike }: LikeButtonProps) => {
   return (
     <>
       <h2>{title}</h2>
-      <button onClick={handleClick}>{state.liked ? "Unlike" : "Like"}</button>
-      {state.count > 0 && <p>You have {state.count} likes</p>}
+      <button onClick={onLike}>{liked ? "Unlike" : "Like"}</button>
+      {count > 0 && <p>{count}</p>}
     </>
   );
 };
