@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 
 interface Post {
@@ -16,6 +16,17 @@ const posts: Post[] = [
 
 const LikeList = () => {
   const [postsState, setPostsState] = useState<Post[]>(posts);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   const handleLike = (id: number) => {
     setPostsState((posts) => {
@@ -43,6 +54,7 @@ const LikeList = () => {
           onLike={() => handleLike(post.id)}
         />
       ))}
+      <p>Time on page: {seconds}s</p>
     </>
   );
 };
